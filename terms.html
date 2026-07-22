@@ -6,38 +6,39 @@
   <title>Terms of Service – CardWise</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --teal:#2A7A6B; --teal-dark:#1E5C50; --navy:#1A1A2E; --navy2:#243050;
+      --gray:#6B7280; --border:#E5E7EB; --ink:#374151;
+    }
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: #F7F8FA;
-      color: #1A1A2E;
-      line-height: 1.7;
+      font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+      background:#fff; color:var(--navy); line-height:1.7; -webkit-font-smoothing:antialiased;
     }
     header {
-      background: #2A7A6B;
-      color: #fff;
-      padding: 40px 24px 32px;
+      background:linear-gradient(135deg,var(--navy),var(--navy2));
+      color:#fff; padding:52px 0 40px; position:relative; overflow:hidden;
     }
-    header h1 { font-size: 28px; font-weight: 700; }
-    header p { font-size: 14px; opacity: 0.8; margin-top: 6px; }
-    .container { max-width: 740px; margin: 0 auto; padding: 40px 24px 80px; }
-    h2 {
-      font-size: 18px; font-weight: 700; color: #2A7A6B;
-      margin: 36px 0 12px; padding-bottom: 8px;
-      border-bottom: 1px solid #E5E7EB;
+    header::before {
+      content:""; position:absolute; width:280px; height:280px; border-radius:50%;
+      background:rgba(42,122,107,0.22); right:-90px; top:-120px;
     }
-    p { margin-bottom: 14px; font-size: 15px; color: #374151; }
-    ul { padding-left: 20px; margin-bottom: 14px; }
-    li { font-size: 15px; color: #374151; margin-bottom: 6px; }
-    a { color: #2A7A6B; }
+    header h1 { font-size:30px; font-weight:800; letter-spacing:-0.5px; max-width:740px; margin:0 auto; padding:0 24px; position:relative; }
+    header p { font-size:14px; color:rgba(255,255,255,0.7); margin:8px auto 0; max-width:740px; padding:0 24px; position:relative; }
+    .container { max-width:740px; margin:0 auto; padding:44px 24px 72px; }
     .badge {
-      display: inline-block; background: #E8F4F1; color: #2A7A6B;
-      border-radius: 8px; padding: 4px 12px; font-size: 13px;
-      font-weight: 600; margin-bottom: 28px;
+      display:inline-block; background:#E8F4F1; color:var(--teal); border-radius:999px;
+      padding:6px 14px; font-size:13px; font-weight:700; margin-bottom:28px;
     }
-    footer {
-      text-align: center; font-size: 13px; color: #9CA3AF;
-      margin-top: 60px; padding-top: 24px; border-top: 1px solid #E5E7EB;
-    }
+    h2 { font-size:19px; font-weight:800; color:var(--navy); margin:38px 0 12px; padding-bottom:10px; border-bottom:2px solid #EEF1F0; letter-spacing:-0.2px; }
+    p { margin-bottom:14px; font-size:15px; color:var(--ink); }
+    ul { padding-left:22px; margin-bottom:14px; }
+    li { font-size:15px; color:var(--ink); margin-bottom:8px; }
+    strong { color:var(--navy); font-weight:700; }
+    a { color:var(--teal); font-weight:500; }
+    a:hover { text-decoration:underline; }
+    footer { margin-top:52px; padding-top:24px; border-top:1px solid var(--border); text-align:center; font-size:13px; color:var(--gray); }
+    footer a { color:var(--teal); }
+    @media (max-width:640px){ header h1{ font-size:25px; } }
   </style>
 </head>
 <body>

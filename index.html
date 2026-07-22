@@ -3,42 +3,208 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CardWise by Poshway</title>
+  <title>CardWise — Know your best card for every purchase</title>
+  <meta name="description" content="CardWise helps you track your credit card balances and rewards, and tells you which card to use for every purchase to maximize points and cash back." />
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --teal: #2A7A6B; --teal-dark: #1E5C50;
+      --navy: #1A1A2E; --navy-2: #243050;
+      --bg: #F7F8FA; --gray: #6B7280; --border: #E5E7EB; --tint: #E8F4F1;
+    }
+    html { scroll-behavior: smooth; }
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: #F7F8FA; color: #1A1A2E;
-      min-height: 100vh; display: flex; flex-direction: column;
-      align-items: center; justify-content: center; padding: 40px 24px;
-      text-align: center;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color: var(--navy); background: #fff; line-height: 1.5; -webkit-font-smoothing: antialiased;
     }
-    .logo {
-      width: 80px; height: 80px; border-radius: 22px;
-      background: #2A7A6B; display: flex; align-items: center;
-      justify-content: center; font-size: 40px; margin: 0 auto 24px;
+    a { color: var(--teal); text-decoration: none; }
+    .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+    /* Nav */
+    nav { display: flex; align-items: center; justify-content: space-between; padding: 20px 0; }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 20px; color: var(--navy); }
+    .logo { width: 34px; height: 34px; border-radius: 9px; background: linear-gradient(135deg, var(--teal), var(--teal-dark));
+            display: flex; align-items: center; justify-content: center; }
+    .logo svg { width: 18px; height: 18px; }
+    .nav-links { display: flex; gap: 26px; align-items: center; }
+    .nav-links a { color: var(--gray); font-size: 15px; font-weight: 500; }
+    .nav-links a:hover { color: var(--navy); }
+
+    /* Hero */
+    .hero { background: linear-gradient(135deg, var(--navy), var(--navy-2)); border-radius: 28px; margin: 12px 0 64px;
+            padding: 72px 56px; color: #fff; position: relative; overflow: hidden; }
+    .hero::before { content: ""; position: absolute; width: 380px; height: 380px; border-radius: 50%;
+                    background: rgba(42,122,107,0.28); right: -110px; top: -140px; }
+    .hero::after { content: ""; position: absolute; width: 240px; height: 240px; border-radius: 50%;
+                   background: rgba(255,255,255,0.04); right: 120px; bottom: -100px; }
+    .hero-content { position: relative; max-width: 620px; }
+    .eyebrow { display: inline-block; background: rgba(255,255,255,0.1); color: #A7E8D8; font-size: 13px; font-weight: 700;
+               letter-spacing: 0.5px; padding: 6px 14px; border-radius: 999px; margin-bottom: 22px; }
+    .hero h1 { font-size: 46px; line-height: 1.1; font-weight: 800; letter-spacing: -1px; margin-bottom: 18px; }
+    .hero p { font-size: 18px; color: rgba(255,255,255,0.75); margin-bottom: 32px; max-width: 520px; }
+    .badges { display: flex; gap: 14px; flex-wrap: wrap; }
+    .badge { display: inline-flex; align-items: center; gap: 8px; background: #fff; color: var(--navy);
+             padding: 13px 22px; border-radius: 12px; font-weight: 700; font-size: 15px; }
+    .badge.ghost { background: rgba(255,255,255,0.08); color: #fff; border: 1px solid rgba(255,255,255,0.2); }
+    .badge small { display: block; font-size: 10px; font-weight: 500; color: var(--gray); }
+    .badge.ghost small { color: rgba(255,255,255,0.6); }
+
+    /* Sections */
+    section { padding: 0 0 72px; }
+    .section-label { color: var(--teal); font-weight: 700; font-size: 13px; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px; }
+    h2 { font-size: 32px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 12px; }
+    .lead { color: var(--gray); font-size: 17px; max-width: 640px; margin-bottom: 40px; }
+
+    .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+    .feature { background: var(--bg); border: 1px solid var(--border); border-radius: 18px; padding: 28px; }
+    .feature .ico { width: 48px; height: 48px; border-radius: 12px; background: var(--tint); display: flex;
+                    align-items: center; justify-content: center; margin-bottom: 16px; }
+    .feature .ico svg { width: 24px; height: 24px; stroke: var(--teal); }
+    .feature h3 { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
+    .feature p { color: var(--gray); font-size: 14px; }
+
+    /* Security */
+    .security { background: var(--tint); border-radius: 24px; padding: 56px; }
+    .security-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 32px; margin-top: 36px; }
+    .sec-item { display: flex; gap: 14px; align-items: flex-start; }
+    .sec-item .check { flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%; background: var(--teal);
+                       display: flex; align-items: center; justify-content: center; }
+    .sec-item .check svg { width: 14px; height: 14px; stroke: #fff; }
+    .sec-item h4 { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+    .sec-item p { font-size: 13px; color: var(--teal-dark); }
+
+    /* Footer */
+    footer { background: var(--navy); color: rgba(255,255,255,0.7); padding: 56px 0 40px; }
+    .foot-top { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 32px; margin-bottom: 40px; }
+    .foot-brand { color: #fff; font-weight: 800; font-size: 20px; display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+    .foot-col h5 { color: #fff; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 14px; }
+    .foot-col a, .foot-col p { display: block; color: rgba(255,255,255,0.6); font-size: 14px; margin-bottom: 10px; }
+    .foot-col a:hover { color: #fff; }
+    .foot-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 24px; font-size: 13px; color: rgba(255,255,255,0.5);
+                   display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+
+    @media (max-width: 640px) {
+      .hero { padding: 48px 28px; } .hero h1 { font-size: 34px; }
+      .security { padding: 36px 24px; } .nav-links { display: none; }
     }
-    h1 { font-size: 32px; font-weight: 700; color: #1A1A2E; }
-    p { font-size: 16px; color: #6B7280; margin-top: 10px; max-width: 400px; line-height: 1.6; }
-    .links { margin-top: 40px; display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
-    a {
-      background: #2A7A6B; color: #fff; text-decoration: none;
-      padding: 12px 24px; border-radius: 10px; font-size: 15px; font-weight: 600;
-    }
-    a.secondary {
-      background: #E8F4F1; color: #2A7A6B;
-    }
-    .footer { margin-top: 60px; font-size: 13px; color: #9CA3AF; }
   </style>
 </head>
 <body>
-  <div class="logo">💳</div>
-  <h1>CardWise</h1>
-  <p>Consolidate your credit cards, maximize your rewards, and always use the right card — all in one place.</p>
-  <div class="links">
-    <a href="privacy-policy.html">Privacy Policy</a>
-    <a href="terms.html" class="secondary">Terms of Service</a>
+  <div class="wrap">
+    <nav>
+      <div class="brand">
+        <span class="logo">
+          <svg viewBox="0 0 24 24" fill="none"><rect x="2" y="5" width="20" height="14" rx="3" stroke="#fff" stroke-width="2"/><path d="M2 10h20" stroke="#fff" stroke-width="2"/></svg>
+        </span>
+        CardWise
+      </div>
+      <div class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#security">Security</a>
+        <a href="privacy-policy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+      </div>
+    </nav>
+
+    <div class="hero">
+      <div class="hero-content">
+        <span class="eyebrow">MAXIMIZE EVERY PURCHASE</span>
+        <h1>Know your best card for every purchase.</h1>
+        <p>CardWise links your credit cards, tracks your balances and points, and instantly tells you which card earns the most rewards — dining, travel, groceries, and more.</p>
+        <div class="badges">
+          <span class="badge">🍎 <span>Coming soon to<br><small style="font-weight:700;color:var(--navy);font-size:15px">App Store</small></span></span>
+          <span class="badge ghost">▶ <span>Coming soon to<br><small style="font-weight:700;color:#fff;font-size:15px">Google Play</small></span></span>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="footer">© 2026 Poshway · <a href="mailto:poshway.tech@gmail.com" style="color:#2A7A6B;text-decoration:none;">poshway.tech@gmail.com</a></div>
+
+  <div class="wrap">
+    <section id="features">
+      <div class="section-label">What CardWise does</div>
+      <h2>One app for all your cards</h2>
+      <p class="lead">Stop guessing which card to pull out. CardWise reads your linked cards and does the math for you.</p>
+      <div class="features">
+        <div class="feature">
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="3"/><path d="M2 10h20"/></svg></div>
+          <h3>Link all your cards</h3>
+          <p>Securely connect your credit cards through Plaid with bank-level, read-only access.</p>
+        </div>
+        <div class="feature">
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 2l2.4 7.4H22l-6 4.5 2.3 7.1L12 16.5 5.7 21l2.3-7.1-6-4.5h7.6z"/></svg></div>
+          <h3>Best card, every time</h3>
+          <p>Get an instant recommendation for which card earns the most on each purchase category.</p>
+        </div>
+        <div class="feature">
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg></div>
+          <h3>Track balances & points</h3>
+          <p>See all your balances, points, and rewards in one clean dashboard that stays up to date.</p>
+        </div>
+        <div class="feature">
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M20 12v9H4v-9"/><path d="M2 7h20v5H2z"/><path d="M12 22V7"/><path d="M12 7S9 2 6.5 2 4 5.5 6.5 5.5 12 7 12 7z"/></svg></div>
+          <h3>Deals & perks</h3>
+          <p>Never miss a benefit — see the perks and credits your linked cards already include.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="security">
+      <div class="security">
+        <div class="section-label">Your data stays yours</div>
+        <h2>Built with bank-level security</h2>
+        <p class="lead" style="color:var(--teal-dark)">We use Plaid to connect to your bank. Your login credentials are never seen or stored by CardWise — and we never sell your data.</p>
+        <div class="security-grid">
+          <div class="sec-item">
+            <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span>
+            <div><h4>Powered by Plaid</h4><p>You enter bank credentials directly with Plaid, trusted by thousands of financial apps.</p></div>
+          </div>
+          <div class="sec-item">
+            <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span>
+            <div><h4>Read-only access</h4><p>CardWise can view balances and transactions — it can never move money or make changes.</p></div>
+          </div>
+          <div class="sec-item">
+            <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span>
+            <div><h4>Encrypted end to end</h4><p>Your data is encrypted in transit and at rest, and tied only to your authenticated account.</p></div>
+          </div>
+          <div class="sec-item">
+            <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span>
+            <div><h4>Never sold, ever</h4><p>We don't sell or rent your data, and we don't use it for advertising. Delete it any time.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    <div class="wrap">
+      <div class="foot-top">
+        <div style="max-width:300px">
+          <div class="foot-brand">
+            <span class="logo"><svg viewBox="0 0 24 24" fill="none"><rect x="2" y="5" width="20" height="14" rx="3" stroke="#fff" stroke-width="2"/><path d="M2 10h20" stroke="#fff" stroke-width="2"/></svg></span>
+            CardWise
+          </div>
+          <p style="color:rgba(255,255,255,0.6);font-size:14px">Maximize every purchase. A Poshway LLC product.</p>
+        </div>
+        <div class="foot-col">
+          <h5>Product</h5>
+          <a href="#features">Features</a>
+          <a href="#security">Security</a>
+        </div>
+        <div class="foot-col">
+          <h5>Legal</h5>
+          <a href="privacy-policy.html">Privacy Policy</a>
+          <a href="terms.html">Terms of Service</a>
+        </div>
+        <div class="foot-col">
+          <h5>Contact</h5>
+          <a href="mailto:poshway.tech@gmail.com">poshway.tech@gmail.com</a>
+        </div>
+      </div>
+      <div class="foot-bottom">
+        <span>© 2026 Poshway LLC. All rights reserved.</span>
+        <span>CardWise is not a bank and does not provide financial advice.</span>
+      </div>
+    </div>
+  </footer>
 </body>
 </html>
