@@ -1,224 +1,341 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CardWise — Know your best card for every purchase</title>
-  <meta name="description" content="CardWise helps you track your credit card balances and rewards, and tells you which card to use for every purchase to maximize points and cash back." />
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    :root {
-      --teal: #2A7A6B; --teal-dark: #1E5C50;
-      --navy: #1A1A2E; --navy-2: #243050;
-      --bg: #F7F8FA; --gray: #6B7280; --border: #E5E7EB; --tint: #E8F4F1;
-    }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      color: var(--navy); background: #fff; line-height: 1.5; -webkit-font-smoothing: antialiased;
-    }
-    a { color: var(--teal); text-decoration: none; }
-    .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CardWise — Know your best card for every purchase</title>
+<meta name="description" content="CardWise helps you track your credit card balances and rewards, and tells you which card to use for every purchase to maximize points and cash back." />
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --teal: #2A7A6B; --teal-dark: #1E5C50;
+  --navy: #1A1A2E; --navy-2: #243050;
+  --bg: #F7F8FA; --gray: #6B7280; --border: #E5E7EB; --tint: #E8F4F1;
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: var(--navy); background: #fff; line-height: 1.5; -webkit-font-smoothing: antialiased;
+}
+a { color: var(--teal); text-decoration: none; }
+.wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+/* Nav */
+nav { display: flex; align-items: center; justify-content: space-between; padding: 20px 0; }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 20px; color: var(--navy); }
+.logo { width: 34px; height: 34px; border-radius: 9px; background: linear-gradient(135deg, var(--teal), var(--teal-dark));
+  display: flex; align-items: center; justify-content: center; }
+.logo svg { width: 18px; height: 18px; }
+.nav-links { display: flex; gap: 26px; align-items: center; }
+.nav-links a { color: var(--gray); font-size: 15px; font-weight: 500; }
+.nav-links a:hover { color: var(--navy); }
+.nav-cta { background: var(--teal); color: #fff !important; padding: 9px 18px; border-radius: 10px; font-weight: 700 !important; }
+.nav-cta:hover { background: var(--teal-dark); color: #fff !important; }
+/* Hero */
+.hero { background: linear-gradient(135deg, var(--navy), var(--navy-2)); border-radius: 28px; margin: 12px 0 64px;
+  padding: 72px 56px; color: #fff; position: relative; overflow: hidden; }
+.hero::before { content: ""; position: absolute; width: 380px; height: 380px; border-radius: 50%;
+  background: rgba(42,122,107,0.28); right: -110px; top: -140px; }
+.hero::after { content: ""; position: absolute; width: 240px; height: 240px; border-radius: 50%;
+  background: rgba(255,255,255,0.04); right: 120px; bottom: -100px; }
+.hero-content { position: relative; max-width: 620px; }
+.eyebrow { display: inline-block; background: rgba(255,255,255,0.1); color: #A7E8D8; font-size: 13px; font-weight: 700;
+  letter-spacing: 0.5px; padding: 6px 14px; border-radius: 999px; margin-bottom: 22px; }
+.hero h1 { font-size: 46px; line-height: 1.1; font-weight: 800; letter-spacing: -1px; margin-bottom: 18px; }
+.hero p { font-size: 18px; color: rgba(255,255,255,0.75); margin-bottom: 32px; max-width: 520px; }
+.badges { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+.badge { display: inline-flex; align-items: center; gap: 10px; background: #fff; color: var(--navy);
+  padding: 11px 20px; border-radius: 12px; }
+.badge.ghost { background: rgba(255,255,255,0.08); color: #fff; border: 1px solid rgba(255,255,255,0.2); }
+.badge svg { width: 24px; height: 24px; flex: none; }
+.badge .txt { display: flex; flex-direction: column; line-height: 1.2; text-align: left; }
+.badge small { font-size: 10px; font-weight: 500; color: var(--gray); }
+.badge strong { font-size: 16px; font-weight: 700; letter-spacing: -0.2px; }
+.badge.ghost small { color: rgba(255,255,255,0.6); }
+.hero-cta { display: inline-flex; align-items: center; gap: 8px; background: var(--teal); color: #fff;
+  padding: 14px 26px; border-radius: 12px; font-weight: 700; font-size: 15px; margin-bottom: 28px;
+  transition: background 0.15s ease, transform 0.15s ease; }
+.hero-cta:hover { background: #33927F; color: #fff; transform: translateY(-1px); }
+/* Sections */
+section { padding: 0 0 72px; }
+.section-label { color: var(--teal); font-weight: 700; font-size: 13px; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px; }
+h2 { font-size: 32px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 12px; }
+.lead { color: var(--gray); font-size: 17px; max-width: 640px; margin-bottom: 40px; }
+.features { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+.feature { background: var(--bg); border: 1px solid var(--border); border-radius: 18px; padding: 28px; }
+.feature .ico { width: 48px; height: 48px; border-radius: 12px; background: var(--tint); display: flex;
+  align-items: center; justify-content: center; margin-bottom: 16px; }
+.feature .ico svg { width: 24px; height: 24px; stroke: var(--teal); }
+.feature h3 { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
+.feature p { color: var(--gray); font-size: 14px; }
+/* Security */
+.security { background: var(--tint); border-radius: 24px; padding: 56px; }
+.security-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 32px; margin-top: 36px; }
+.sec-item { display: flex; gap: 14px; align-items: flex-start; }
+.sec-item .check { flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%; background: var(--teal);
+  display: flex; align-items: center; justify-content: center; }
+.sec-item .check svg { width: 14px; height: 14px; stroke: #fff; }
+.sec-item h4 { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+.sec-item p { font-size: 13px; color: var(--teal-dark); }
+/* Footer */
+footer { background: var(--navy); color: rgba(255,255,255,0.7); padding: 56px 0 40px; }
+.foot-top { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 32px; margin-bottom: 40px; }
+.foot-brand { color: #fff; font-weight: 800; font-size: 20px; display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+.foot-col h5 { color: #fff; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 14px; }
+.foot-col a, .foot-col p { display: block; color: rgba(255,255,255,0.6); font-size: 14px; margin-bottom: 10px; }
+.foot-col a:hover { color: #fff; }
+.foot-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 24px; font-size: 13px; color: rgba(255,255,255,0.5);
+  display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
 
-    /* Nav */
-    nav { display: flex; align-items: center; justify-content: space-between; padding: 20px 0; }
-    .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 20px; color: var(--navy); }
-    .logo { width: 34px; height: 34px; border-radius: 9px; background: linear-gradient(135deg, var(--teal), var(--teal-dark));
-            display: flex; align-items: center; justify-content: center; }
-    .logo svg { width: 18px; height: 18px; }
-    .nav-links { display: flex; gap: 26px; align-items: center; }
-    .nav-links a { color: var(--gray); font-size: 15px; font-weight: 500; }
-    .nav-links a:hover { color: var(--navy); }
-
-    /* Hero */
-    .hero { background: linear-gradient(135deg, var(--navy), var(--navy-2)); border-radius: 28px; margin: 12px 0 64px;
-            padding: 72px 56px; color: #fff; position: relative; overflow: hidden; }
-    .hero::before { content: ""; position: absolute; width: 380px; height: 380px; border-radius: 50%;
-                    background: rgba(42,122,107,0.28); right: -110px; top: -140px; }
-    .hero::after { content: ""; position: absolute; width: 240px; height: 240px; border-radius: 50%;
-                   background: rgba(255,255,255,0.04); right: 120px; bottom: -100px; }
-    .hero-content { position: relative; max-width: 620px; }
-    .eyebrow { display: inline-block; background: rgba(255,255,255,0.1); color: #A7E8D8; font-size: 13px; font-weight: 700;
-               letter-spacing: 0.5px; padding: 6px 14px; border-radius: 999px; margin-bottom: 22px; }
-    .hero h1 { font-size: 46px; line-height: 1.1; font-weight: 800; letter-spacing: -1px; margin-bottom: 18px; }
-    .hero p { font-size: 18px; color: rgba(255,255,255,0.75); margin-bottom: 32px; max-width: 520px; }
-    .badges { display: flex; gap: 14px; flex-wrap: wrap; }
-    .badge { display: inline-flex; align-items: center; gap: 10px; background: #fff; color: var(--navy);
-             padding: 11px 20px; border-radius: 12px; }
-    .badge.ghost { background: rgba(255,255,255,0.08); color: #fff; border: 1px solid rgba(255,255,255,0.2); }
-    .badge svg { width: 24px; height: 24px; flex: none; }
-    .badge .txt { display: flex; flex-direction: column; line-height: 1.2; text-align: left; }
-    .badge small { font-size: 10px; font-weight: 500; color: var(--gray); }
-    .badge strong { font-size: 16px; font-weight: 700; letter-spacing: -0.2px; }
-    .badge.ghost small { color: rgba(255,255,255,0.6); }
-
-    /* Sections */
-    section { padding: 0 0 72px; }
-    .section-label { color: var(--teal); font-weight: 700; font-size: 13px; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px; }
-    h2 { font-size: 32px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 12px; }
-    .lead { color: var(--gray); font-size: 17px; max-width: 640px; margin-bottom: 40px; }
-
-    .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
-    .feature { background: var(--bg); border: 1px solid var(--border); border-radius: 18px; padding: 28px; }
-    .feature .ico { width: 48px; height: 48px; border-radius: 12px; background: var(--tint); display: flex;
-                    align-items: center; justify-content: center; margin-bottom: 16px; }
-    .feature .ico svg { width: 24px; height: 24px; stroke: var(--teal); }
-    .feature h3 { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
-    .feature p { color: var(--gray); font-size: 14px; }
-
-    /* Security */
-    .security { background: var(--tint); border-radius: 24px; padding: 56px; }
-    .security-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 32px; margin-top: 36px; }
-    .sec-item { display: flex; gap: 14px; align-items: flex-start; }
-    .sec-item .check { flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%; background: var(--teal);
-                       display: flex; align-items: center; justify-content: center; }
-    .sec-item .check svg { width: 14px; height: 14px; stroke: #fff; }
-    .sec-item h4 { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
-    .sec-item p { font-size: 13px; color: var(--teal-dark); }
-
-    /* Footer */
-    footer { background: var(--navy); color: rgba(255,255,255,0.7); padding: 56px 0 40px; }
-    .foot-top { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 32px; margin-bottom: 40px; }
-    .foot-brand { color: #fff; font-weight: 800; font-size: 20px; display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
-    .foot-col h5 { color: #fff; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 14px; }
-    .foot-col a, .foot-col p { display: block; color: rgba(255,255,255,0.6); font-size: 14px; margin-bottom: 10px; }
-    .foot-col a:hover { color: #fff; }
-    .foot-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 24px; font-size: 13px; color: rgba(255,255,255,0.5);
-                   display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
-
-    @media (max-width: 640px) {
-      .hero { padding: 48px 28px; } .hero h1 { font-size: 34px; }
-      .security { padding: 36px 24px; } .nav-links { display: none; }
-    }
-  </style>
+/* ===== Waitlist section ===== */
+.waitlist { background: linear-gradient(135deg, var(--navy), var(--navy-2)); border-radius: 24px; padding: 56px; color: #fff; text-align: center; position: relative; overflow: hidden; }
+.waitlist::before { content: ""; position: absolute; width: 320px; height: 320px; border-radius: 50%;
+  background: rgba(42,122,107,0.28); left: -120px; bottom: -140px; }
+.waitlist-inner { position: relative; max-width: 520px; margin: 0 auto; }
+.waitlist .section-label { color: #A7E8D8; }
+.waitlist h2 { color: #fff; }
+.waitlist .lead { color: rgba(255,255,255,0.75); margin: 0 auto 8px; }
+.wl-counter { display: inline-block; background: rgba(255,255,255,0.1); color: #A7E8D8; font-size: 13px; font-weight: 700;
+  padding: 6px 16px; border-radius: 999px; margin-bottom: 28px; }
+.wl-form { display: flex; gap: 10px; max-width: 420px; margin: 0 auto; }
+.wl-form input[type="email"] { flex: 1; min-width: 0; padding: 14px 18px; font-size: 15px; border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.18); background: rgba(255,255,255,0.06); color: #fff; outline: none; }
+.wl-form input[type="email"]::placeholder { color: rgba(255,255,255,0.4); }
+.wl-form input[type="email"]:focus { border-color: var(--teal); }
+.wl-form button { flex-shrink: 0; padding: 14px 24px; font-size: 15px; font-weight: 700; border: none; border-radius: 10px;
+  background: var(--teal); color: #fff; cursor: pointer; transition: background 0.15s ease, transform 0.15s ease; }
+.wl-form button:hover { background: #33927F; transform: translateY(-1px); }
+.wl-form button:disabled { opacity: 0.6; cursor: default; transform: none; }
+.wl-fine { margin-top: 14px; font-size: 13px; color: rgba(255,255,255,0.5); }
+.wl-message { display: none; margin-top: 18px; padding: 14px 18px; border-radius: 10px; font-size: 14px; }
+.wl-message.success { background: rgba(42,122,107,0.25); color: #A7E8D8; }
+.wl-message.error { background: rgba(220,80,80,0.2); color: #FFB4B4; }
+@media (max-width: 640px) {
+  .hero { padding: 48px 28px; } .hero h1 { font-size: 34px; }
+  .security { padding: 36px 24px; } .nav-links a:not(.nav-cta) { display: none; }
+  .waitlist { padding: 40px 24px; }
+  .wl-form { flex-direction: column; }
+  .wl-form button { width: 100%; }
+}
+</style>
 </head>
 <body>
-  <div class="wrap">
-    <nav>
-      <div class="brand">
-        <span class="logo">
-          <svg viewBox="0 0 24 24" fill="none"><rect x="2" y="5" width="20" height="14" rx="3" stroke="#fff" stroke-width="2"/><path d="M2 10h20" stroke="#fff" stroke-width="2"/></svg>
-        </span>
-        CardWise
-      </div>
-      <div class="nav-links">
-        <a href="#features">Features</a>
-        <a href="#security">Security</a>
-        <a href="privacy-policy.html">Privacy</a>
-        <a href="terms.html">Terms</a>
-      </div>
-    </nav>
+<div class="wrap">
+<nav>
+<div class="brand">
+<span class="logo">
+<svg viewBox="0 0 24 24" fill="none"><rect x="2" y="5" width="20" height="14" rx="3" stroke="#fff" stroke-width="2"/><path d="M2 10h20" stroke="#fff" stroke-width="2"/></svg>
+</span>
+CardWise
+</div>
+<div class="nav-links">
+<a href="#features">Features</a>
+<a href="#security">Security</a>
+<a href="privacy-policy.html">Privacy</a>
+<a href="terms.html">Terms</a>
+<a href="#waitlist" class="nav-cta">Join Waitlist</a>
+</div>
+</nav>
 
-    <div class="hero">
-      <div class="hero-content">
-        <span class="eyebrow">MAXIMIZE EVERY PURCHASE</span>
-        <h1>Know your best card for every purchase.</h1>
-        <p>CardWise links your credit cards, tracks your balances and points, and instantly tells you which card earns the most rewards — dining, travel, groceries, and more.</p>
-        <div class="badges">
-          <span class="badge">
-            <svg viewBox="0 0 384 512" fill="currentColor" aria-hidden="true"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
-            <span class="txt"><small>Coming soon to</small><strong>App Store</strong></span>
-          </span>
-          <span class="badge ghost">
-            <svg viewBox="0 0 480 512" aria-hidden="true">
-              <path fill="#00A0FF" d="M32 10 300 256 32 502z"/>
-              <path fill="#00E676" d="M32 10 382 200 300 256z"/>
-              <path fill="#FFC400" d="M382 200 445 234c18 12 18 32 0 44l-63 34-82-56z"/>
-              <path fill="#FF3A44" d="M32 502 300 256 382 312z"/>
-            </svg>
-            <span class="txt"><small>Coming soon to</small><strong>Google Play</strong></span>
-          </span>
-        </div>
-      </div>
-    </div>
-  </div>
+<div class="hero">
+<div class="hero-content">
+<span class="eyebrow">MAXIMIZE EVERY PURCHASE</span>
+<h1>Know your best card for every purchase.</h1>
+<p>CardWise links your credit cards, tracks your balances and points, and instantly tells you which card earns the most rewards — dining, travel, groceries, and more.</p>
+<a href="#waitlist" class="hero-cta">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+Join the waitlist
+</a>
+<div class="badges">
+<span class="badge">
+<svg viewBox="0 0 384 512" fill="currentColor" aria-hidden="true"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
+<span class="txt"><small>Coming soon to</small><strong>App Store</strong></span>
+</span>
+<span class="badge ghost">
+<svg viewBox="0 0 480 512" aria-hidden="true">
+<path fill="#00A0FF" d="M32 10 300 256 32 502z"/>
+<path fill="#00E676" d="M32 10 382 200 300 256z"/>
+<path fill="#FFC400" d="M382 200 445 234c18 12 18 32 0 44l-63 34-82-56z"/>
+<path fill="#FF3A44" d="M32 502 300 256 382 312z"/>
+</svg>
+<span class="txt"><small>Coming soon to</small><strong>Google Play</strong></span>
+</span>
+</div>
+</div>
+</div>
+</div>
 
-  <div class="wrap">
-    <section id="features">
-      <div class="section-label">What CardWise does</div>
-      <h2>One app for all your cards</h2>
-      <p class="lead">Stop guessing which card to pull out. CardWise reads your linked cards and does the math for you.</p>
-      <div class="features">
-        <div class="feature">
-          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="3"/><path d="M2 10h20"/></svg></div>
-          <h3>Link all your cards</h3>
-          <p>Securely connect your credit cards through Plaid with bank-level, read-only access.</p>
-        </div>
-        <div class="feature">
-          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 2l2.4 7.4H22l-6 4.5 2.3 7.1L12 16.5 5.7 21l2.3-7.1-6-4.5h7.6z"/></svg></div>
-          <h3>Best card, every time</h3>
-          <p>Get an instant recommendation for which card earns the most on each purchase category.</p>
-        </div>
-        <div class="feature">
-          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg></div>
-          <h3>Track balances & points</h3>
-          <p>See all your balances, points, and rewards in one clean dashboard that stays up to date.</p>
-        </div>
-        <div class="feature">
-          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M20 12v9H4v-9"/><path d="M2 7h20v5H2z"/><path d="M12 22V7"/><path d="M12 7S9 2 6.5 2 4 5.5 6.5 5.5 12 7 12 7z"/></svg></div>
-          <h3>Deals & perks</h3>
-          <p>Never miss a benefit — see the perks and credits your linked cards already include.</p>
-        </div>
-      </div>
-    </section>
+<div class="wrap">
 
-    <section id="security">
-      <div class="security">
-        <div class="section-label">Your data stays yours</div>
-        <h2>Built with bank-level security</h2>
-        <p class="lead" style="color:var(--teal-dark)">We use Plaid to connect to your bank. Your login credentials are never seen or stored by CardWise — and we never sell your data.</p>
-        <div class="security-grid">
-          <div class="sec-item">
-            <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span>
-            <div><h4>Powered by Plaid</h4><p>You enter bank credentials directly with Plaid, trusted by thousands of financial apps.</p></div>
-          </div>
-          <div class="sec-item">
-            <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span>
-            <div><h4>Read-only access</h4><p>CardWise can view balances and transactions — it can never move money or make changes.</p></div>
-          </div>
-          <div class="sec-item">
-            <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span>
-            <div><h4>Encrypted end to end</h4><p>Your data is encrypted in transit and at rest, and tied only to your authenticated account.</p></div>
-          </div>
-          <div class="sec-item">
-            <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span>
-            <div><h4>Never sold, ever</h4><p>We don't sell or rent your data, and we don't use it for advertising. Delete it any time.</p></div>
-          </div>
-        </div>
-      </div>
-    </section>
-  </div>
+<!-- ===== Waitlist section ===== -->
+<section id="waitlist">
+<div class="waitlist">
+<div class="waitlist-inner">
+<div class="section-label">Limited pilot access</div>
+<div class="wl-counter" id="wl-counter">Loading spots…</div>
+<h2>Be one of the first to use CardWise</h2>
+<p class="lead">We're opening the app to a small pilot group before public launch. Join the waitlist and we'll email you the moment you're in.</p>
 
-  <footer>
-    <div class="wrap">
-      <div class="foot-top">
-        <div style="max-width:300px">
-          <div class="foot-brand">
-            <span class="logo"><svg viewBox="0 0 24 24" fill="none"><rect x="2" y="5" width="20" height="14" rx="3" stroke="#fff" stroke-width="2"/><path d="M2 10h20" stroke="#fff" stroke-width="2"/></svg></span>
-            CardWise
-          </div>
-          <p style="color:rgba(255,255,255,0.6);font-size:14px">Maximize every purchase. A Poshway LLC product.</p>
-        </div>
-        <div class="foot-col">
-          <h5>Product</h5>
-          <a href="#features">Features</a>
-          <a href="#security">Security</a>
-        </div>
-        <div class="foot-col">
-          <h5>Legal</h5>
-          <a href="privacy-policy.html">Privacy Policy</a>
-          <a href="terms.html">Terms of Service</a>
-        </div>
-        <div class="foot-col">
-          <h5>Contact</h5>
-          <a href="mailto:poshway.tech@gmail.com">poshway.tech@gmail.com</a>
-        </div>
-      </div>
-      <div class="foot-bottom">
-        <span>© 2026 Poshway LLC. All rights reserved.</span>
-        <span>CardWise is not a bank and does not provide financial advice.</span>
-      </div>
-    </div>
-  </footer>
+<form class="wl-form" id="wl-form">
+<input type="email" name="email" id="wl-email" placeholder="you@email.com" required aria-label="Email address">
+<button type="submit" id="wl-submit">Join the waitlist</button>
+</form>
+
+<div class="wl-message success" id="wl-success">You're on the list! We'll email you with updates and let you know the moment you're in.</div>
+<div class="wl-message error" id="wl-error">Something went wrong. Please try again in a moment.</div>
+
+<p class="wl-fine">No spam. We'll only email you about CardWise updates and your pilot invite.</p>
+</div>
+</div>
+</section>
+
+<section id="features">
+<div class="section-label">What CardWise does</div>
+<h2>One app for all your cards</h2>
+<p class="lead">Stop guessing which card to pull out. CardWise reads your linked cards and does the math for you.</p>
+<div class="features">
+<div class="feature">
+<div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="3"/><path d="M2 10h20"/></svg></div>
+<h3>Link all your cards</h3>
+<p>Securely connect your credit cards through Plaid with bank-level, read-only access.</p>
+</div>
+<div class="feature">
+<div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 2l2.4 7.4H22l-6 4.5 2.3 7.1L12 16.5 5.7 21l2.3-7.1-6-4.5h7.6z"/></svg></div>
+<h3>Best card, every time</h3>
+<p>Get an instant recommendation for which card earns the most on each purchase category.</p>
+</div>
+<div class="feature">
+<div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg></div>
+<h3>Track balances & points</h3>
+<p>See all your balances, points, and rewards in one clean dashboard that stays up to date.</p>
+</div>
+<div class="feature">
+<div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M20 12v9H4v-9"/><path d="M2 7h20v5H2z"/><path d="M12 22V7"/><path d="M12 7S9 2 6.5 2 4 5.5 6.5 5.5 12 7 12 7z"/></svg></div>
+<h3>Deals & perks</h3>
+<p>Never miss a benefit — see the perks and credits your linked cards already include.</p>
+</div>
+</div>
+</section>
+
+<section id="security">
+<div class="security">
+<div class="section-label">Your data stays yours</div>
+<h2>Built with bank-level security</h2>
+<p class="lead" style="color:var(--teal-dark)">We use Plaid to connect to your bank. Your login credentials are never seen or stored by CardWise — and we never sell your data.</p>
+<div class="security-grid">
+<div class="sec-item">
+<span class="check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span>
+<div><h4>Powered by Plaid</h4><p>You enter bank credentials directly with Plaid, trusted by thousands of financial apps.</p></div>
+</div>
+<div class="sec-item">
+<span class="check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span>
+<div><h4>Read-only access</h4><p>CardWise can view balances and transactions — it can never move money or make changes.</p></div>
+</div>
+<div class="sec-item">
+<span class="check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span>
+<div><h4>Encrypted end to end</h4><p>Your data is encrypted in transit and at rest, and tied only to your authenticated account.</p></div>
+</div>
+<div class="sec-item">
+<span class="check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span>
+<div><h4>Never sold, ever</h4><p>We don't sell or rent your data, and we don't use it for advertising. Delete it any time.</p></div>
+</div>
+</div>
+</div>
+</section>
+
+</div>
+
+<footer>
+<div class="wrap">
+<div class="foot-top">
+<div style="max-width:300px">
+<div class="foot-brand">
+<span class="logo"><svg viewBox="0 0 24 24" fill="none"><rect x="2" y="5" width="20" height="14" rx="3" stroke="#fff" stroke-width="2"/><path d="M2 10h20" stroke="#fff" stroke-width="2"/></svg></span>
+CardWise
+</div>
+<p style="color:rgba(255,255,255,0.6);font-size:14px">Maximize every purchase. A Poshway LLC product.</p>
+</div>
+<div class="foot-col">
+<h5>Product</h5>
+<a href="#features">Features</a>
+<a href="#security">Security</a>
+<a href="#waitlist">Join Waitlist</a>
+</div>
+<div class="foot-col">
+<h5>Legal</h5>
+<a href="privacy-policy.html">Privacy Policy</a>
+<a href="terms.html">Terms of Service</a>
+</div>
+<div class="foot-col">
+<h5>Contact</h5>
+<a href="mailto:poshway.tech@gmail.com">poshway.tech@gmail.com</a>
+</div>
+</div>
+<div class="foot-bottom">
+<span>© 2026 Poshway LLC. All rights reserved.</span>
+<span>CardWise is not a bank and does not provide financial advice.</span>
+</div>
+</div>
+</footer>
+
+<script>
+// ===================================================================
+// IMPORTANT: replace this with YOUR real Worker URL once deployed
+// (Step "Deploy the Worker" below gives you this URL)
+// ===================================================================
+const WAITLIST_API = "https://cardwise-waitlist.YOUR-SUBDOMAIN.workers.dev";
+
+const counterEl = document.getElementById('wl-counter');
+const form = document.getElementById('wl-form');
+const emailInput = document.getElementById('wl-email');
+const submitBtn = document.getElementById('wl-submit');
+const successEl = document.getElementById('wl-success');
+const errorEl = document.getElementById('wl-error');
+
+// Load and show how many spots are left
+fetch(`${WAITLIST_API}/api/waitlist/count`)
+  .then(r => r.json())
+  .then(data => {
+    if (data.remaining > 0) {
+      counterEl.textContent = `${data.remaining} of ${data.max} spots left`;
+    } else {
+      counterEl.textContent = `Waitlist full — join to be notified of future spots`;
+    }
+  })
+  .catch(() => { counterEl.style.display = 'none'; });
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  errorEl.style.display = 'none';
+  successEl.style.display = 'none';
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Joining…';
+
+  try {
+    const res = await fetch(`${WAITLIST_API}/api/waitlist`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: emailInput.value })
+    });
+    const data = await res.json();
+
+    if (res.ok) {
+      form.style.display = 'none';
+      successEl.textContent = data.position
+        ? `You're on the list at spot #${data.position}! We'll email you with updates.`
+        : `You're on the list! We'll email you with updates.`;
+      successEl.style.display = 'block';
+    } else {
+      errorEl.textContent = data.error || 'Something went wrong. Please try again.';
+      errorEl.style.display = 'block';
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Join the waitlist';
+    }
+  } catch (err) {
+    errorEl.style.display = 'block';
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Join the waitlist';
+  }
+});
+</script>
 </body>
 </html>
