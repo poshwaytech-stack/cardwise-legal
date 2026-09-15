@@ -1,0 +1,83 @@
+flowchart TD
+    subgraph Frontend["🌐 FRONTEND — GitHub Repo: cardwise-legal"]
+        A[Visitor opens poshwaytech.com] --> B["index.html loads
+        (hosted via GitHub Pages,
+        domain via Cloudflare DNS)"]
+        B --> C["Page JS calls:
+        GET /api/waitlist/count
+        → shows 'X spots left'"]
+        B --> D["Visitor fills form,
+        clicks 'Join the waitlist'"]
+        D --> E["Page JS calls:
+        POST /api/waitlist
+        with { email }"]
+    end
+
+    subgraph Worker["⚙️ BACKEND — Cloudflare Worker (worker.js)"]
+        F["Worker receives POST /api/waitlist"]
+        F --> G{Email valid?
+        Spots remaining?
+        Not a duplicate?}
+        G -- No --> H["Return error message
+        (shown on the site)"]
+        G -- Yes --> I["INSERT new row into
+        D1 database"]
+        I --> J["Generate unique
+        unsub_token"]
+        J --> K["Call Resend API:
+        send confirmation email"]
+        K --> L["Return success + position
+        back to the website"]
+    end
+
+    subgraph DB["🗄️ DATABASE — Cloudflare D1: cardwise-waitlist-db"]
+        M[("waitlist table
+        id, email, created_at,
+        notified, unsub_token")]
+    end
+
+    subgraph Resend["📧 EMAIL — Resend (verified domain: poshwaytech.com)"]
+        N["Confirmation email sent
+        (instant, automatic)"]
+        O["Update email sent
+        (manual, whenever you run
+        send-updates.js)"]
+        P["Launch email sent
+        (manual, same script,
+        different message)"]
+    end
+
+    subgraph Admin["💻 YOUR COMPUTER — WSL Terminal"]
+        Q["wrangler d1 execute ...
+        --json > waitlist.json"]
+        Q --> R["node send-updates.js
+        reads waitlist.json"]
+        R --> O
+        R --> P
+    end
+
+    subgraph Unsub["🚫 UNSUBSCRIBE FLOW"]
+        S["Recipient clicks
+        'Unsubscribe' link in
+        ANY email"]
+        S --> T["Opens:
+        GET /api/unsubscribe?token=xxx"]
+        T --> U["Worker finds row by
+        unsub_token, DELETEs it"]
+        U --> V["Shows confirmation page
+        'You've been removed'"]
+    end
+
+    E --> F
+    I -.writes to.-> M
+    K -.calls.-> N
+    Q -.reads from.-> M
+    U -.deletes from.-> M
+    C -.reads from.-> M
+
+    style Frontend fill:#1A1A2E,color:#fff
+    style Worker fill:#2A7A6B,color:#fff
+    style DB fill:#243050,color:#fff
+    style Resend fill:#D4A24C,color:#1A1A2E
+    style Admin fill:#F7F8FA,color:#1A1A2E
+    style Unsub fill:#5C6B82,color:#fff
